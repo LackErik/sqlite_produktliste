@@ -29,6 +29,7 @@ app.get("/produktliste",function(req,res){
 app.get("/create",function(req,res){
     res.sendFile(__dirname + "/views/create.html");
 });
+
 //Post-Request oncreat fügt Produkt hinzu
 app.post("/oncreate",function(req,res){
     const param_name = req.body.produktname;
@@ -40,4 +41,47 @@ app.post("/oncreate",function(req,res){
             res.redirect("/produktliste");
         }
     );
+});
+
+//Post-Request oncreat fügt Produkt hinzu
+app.post("/delete/:id",function(req,res){
+
+    db.run(
+        `DELETE FROM produkte WHERE id = ${req.params.id}`,
+        function(err){
+            res.redirect("/produktliste");
+        }
+    );
 })
+
+//Post-Request oncreat fügt Produkt hinzu
+app.post("/update/:id",function(req,res){
+
+
+    db.all(
+        `SELECT * FROM produkte WHERE id = ${req.params.id}`,
+        function(err,rows){
+           // ausgabe console.log(rows)
+            res.render("update",rows[0]);
+        }
+    );
+
+    
+});
+
+//Post-Request oncreat fügt Produkt hinzu
+app.post("/onupdate/:id",function(req,res){
+
+    const param_name = req.body.produktname;
+    const param_preis = req.body.produktpreis;
+    const param_id = req.params.id;
+
+    db.run(
+        `UPDATE produkte SET name="${param_name}", preis= ${param_preis} WHERE id = ${param_id}`,
+        function(err){
+            res.redirect("/produktliste");
+        }
+    );
+
+    
+});

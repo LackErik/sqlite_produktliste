@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Produkt update</title>
+    </head>
+    <body>
+        <h1> hallo</h1>
+        <form action="/onupdate/<%=id%>" method="POST">
+            Name des Produktes: <br>
+            <input type="text" name="produktname" value="<%=name%>"><br>
+            Preis des Produktes: <br>
+            <input type="text" name="produktpreis" value="<%=preis%>"><br>
+            <button type="submit">speichern</button>
+        </form>
+    </body>
+</html>
